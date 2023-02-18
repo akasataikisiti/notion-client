@@ -4,15 +4,18 @@ import AuthLayout from './components/layout/AuthLayout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from '@mui/material';
+import { blue } from '@mui/material/colors';
 
 function App() {
 
   const theme = createTheme({
-    palette: { mode: "dark" },
+    palette: { primary: blue },
   })
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AuthLayout />}>
