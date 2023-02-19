@@ -25,6 +25,7 @@ const Register = () => {
         confirmPassword
       })
       localStorage.setItem("token", res.token)
+      console.log("新規登録に成功しました")
     } catch (err) {
       console.log(err)
     }
