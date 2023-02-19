@@ -1,10 +1,11 @@
 import { Box, Button, TextField } from "@mui/material"
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
+import authApi from "src/api/authApi";
 
 const Register = () => {
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     //入力欄の文字列を取得
@@ -15,6 +16,18 @@ const Register = () => {
     console.log(username)
     console.log(password)
     console.log(confirmPassword)
+
+    // 新規登録APIを叩く
+    try {
+      const res = await authApi.register({
+        username,
+        password,
+        confirmPassword
+      })
+      localStorage.setItem("token", res.token)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
