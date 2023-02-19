@@ -2,11 +2,18 @@ import { Box, Button, TextField } from "@mui/material"
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import authApi from "src/api/authApi";
+import { useState } from "react";
 
 const Register = () => {
+  const [usernameErrText, setUsernameErrText] = useState("")
+  const [passwordErrText, setPasswordErrText] = useState("")
+  const [confirmErrText, setConfirmErrText] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setUsernameErrText("")
+    setPasswordErrText("")
+    setConfirmErrText("")
 
     //入力欄の文字列を取得
     const data = new FormData(e.target)
@@ -16,6 +23,27 @@ const Register = () => {
     console.log(username)
     console.log(password)
     console.log(confirmPassword)
+
+    let error = false
+
+    if (username === "") {
+      setUsernameErrText("名前を入力してください")
+      error = true
+    }
+    if (password === "") {
+      setPasswordErrText("パスワードを入力してください")
+      error = true
+    }
+    if (confirmPassword === "") {
+      setConfirmErrText("確認用パスワードを入力してください。")
+      error = true
+    }
+    if (password !== confirmPassword) {
+      setConfirmErrText("パスワードと確認用パスワードが異なります。")
+      error = true
+    }
+
+    if (error) return
 
     // 新規登録APIを叩く
     try {
@@ -33,7 +61,7 @@ const Register = () => {
 
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit}>
+      <Box component="form" onSubmit={handleSubmit} noValidate>
         <TextField
           fullWidth
           id="username"
@@ -41,6 +69,7 @@ const Register = () => {
           margin="normal"
           name="username"
           required
+          helperText={usernameErrText}
         />
         <TextField
           fullWidth
@@ -50,6 +79,7 @@ const Register = () => {
           name="password"
           type="password"
           required
+          helperText={passwordErrText}
         />
         <TextField
           fullWidth
@@ -59,6 +89,7 @@ const Register = () => {
           name="confirmPassword"
           type="password"
           required
+          helperText={confirmErrText}
         />
         <LoadingButton
           sx={{ mt: 3, mb: 2 }}
