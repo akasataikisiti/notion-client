@@ -18,4 +18,10 @@ axiosClient.interceptors.request.use(async (config) => {
   }
 })
 
-export default axiosClient;
+axiosClient.interceptors.response.use((response) => {
+  return response
+}, (err) => {
+  throw err.response
+})
+
+export default axiosClient
