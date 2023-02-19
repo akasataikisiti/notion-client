@@ -56,6 +56,19 @@ const Register = () => {
       console.log("新規登録に成功しました")
     } catch (err) {
       console.log(err)
+      const errors = err.data.errors
+      console.log(errors)
+      errors.forEach((err) => {
+        if (err.param === "username") {
+          setUsernameErrText(err.msg)
+        }
+        if (err.param === "password") {
+          setPasswordErrText(err.msg)
+        }
+        if (err.param === "confirmPassword") {
+          setConfirmErrText(err.msg)
+        }
+      })
     }
   }
 
