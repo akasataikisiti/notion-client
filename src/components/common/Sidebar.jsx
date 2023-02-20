@@ -1,6 +1,7 @@
 import {
   Drawer,
   IconButton,
+  Link,
   List,
   ListItemButton,
   Typography,
@@ -74,6 +75,9 @@ const Sidebar = () => {
               <AddBoxOutlinedIcon fontSize="small" />
             </IconButton>
           </Box>
+        </ListItemButton>
+        <ListItemButton sx={{ pl: "20px" }} component={Link} to="/memo/">
+          <Typography>📝仮置きメモ</Typography>
         </ListItemButton>
       </List>
     </Drawer>
