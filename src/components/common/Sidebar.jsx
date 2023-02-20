@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux'
 import { useEffect } from "react"
 import memoApi from "src/api/memoApi"
 import { useDispatch } from "react-redux"
+import { setMemo } from "src/redux/features/memoSlice"
 // import { setMemo } from "src/redux/features/memoSlice"
 
 const Sidebar = () => {
@@ -33,13 +34,13 @@ const Sidebar = () => {
       try {
         const res = await memoApi.getAll()
         console.log(res)
-        dispatch(memos)
+        dispatch(setMemo(res))
       } catch (err) {
         console.log(err)
       }
     }
     getMemos()
-  }, [])
+  }, [dispatch])
 
   return (
     <Drawer
@@ -95,11 +96,17 @@ const Sidebar = () => {
             </IconButton>
           </Box>
         </ListItemButton>
-        <ListItemButton sx={{ pl: "20px" }} component={Link} to="/memo/asdfasdfa">
-          <Typography>📝仮置きメモ</Typography>
-        </ListItemButton>
+        {memos.map((item, index) => (
+          <ListItemButton
+            sx={{ pl: "20px" }}
+            component={Link}
+            to={`/memo/${item._id}`}
+            key={index} >
+            <Typography>{item.icon} {item.title}</Typography>
+          </ListItemButton>
+        ))}
       </List>
-    </Drawer>
+    </Drawer >
   )
 }
 
