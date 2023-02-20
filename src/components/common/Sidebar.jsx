@@ -14,10 +14,14 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux'
 import { useEffect } from "react"
 import memoApi from "src/api/memoApi"
+import { useDispatch } from "react-redux"
+// import { setMemo } from "src/redux/features/memoSlice"
 
 const Sidebar = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const user = useSelector((state) => state.user.value)
+  const memos = useSelector((state) => state.memo.value)
 
   const logout = () => {
     localStorage.removeItem("token")
@@ -29,6 +33,7 @@ const Sidebar = () => {
       try {
         const res = await memoApi.getAll()
         console.log(res)
+        dispatch(memos)
       } catch (err) {
         console.log(err)
       }
