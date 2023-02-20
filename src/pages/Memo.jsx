@@ -54,6 +54,15 @@ const memo = () => {
     }, timeout)
   }
 
+  const deleteMemo = async () => {
+    try {
+      const deletedMemo = await memoApi.delete(memoId)
+      console.log(deletedMemo)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <>
       <Box
@@ -66,8 +75,8 @@ const memo = () => {
         <IconButton>
           <StarBorderOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <DeleteOutlinedIcon variant="outlined" color="error" />
+        <IconButton variant="outlined" color="error" onClick={deleteMemo} >
+          <DeleteOutlinedIcon />
         </IconButton>
       </Box>
       <Box sx={{ padding: "10px 40px" }} >
