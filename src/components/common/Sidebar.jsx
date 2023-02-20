@@ -1,7 +1,6 @@
 import {
   Drawer,
   IconButton,
-  Link,
   List,
   ListItemButton,
   Typography,
@@ -10,17 +9,19 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined"
 import { Box } from "@mui/system"
 import assets from "src/assets/index"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useSelector } from 'react-redux'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import memoApi from "src/api/memoApi"
 import { useDispatch } from "react-redux"
 import { setMemo } from "src/redux/features/memoSlice"
 // import { setMemo } from "src/redux/features/memoSlice"
 
 const Sidebar = () => {
+  const [activeIndex, setActiveIndex] = useState(0)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { memoId } = useParams()
   const user = useSelector((state) => state.user.value)
   const memos = useSelector((state) => state.memo.value)
 
@@ -33,7 +34,6 @@ const Sidebar = () => {
     const getMemos = async () => {
       try {
         const res = await memoApi.getAll()
-        console.log(res)
         dispatch(setMemo(res))
       } catch (err) {
         console.log(err)
@@ -41,6 +41,12 @@ const Sidebar = () => {
     }
     getMemos()
   }, [dispatch])
+
+  useEffect(() => {
+    const activeIndex = memos.findIndex((e) => e._id === memoId)
+    console.log(activeIndex)
+    setActiveIndex(activeIndex)
+  }, [navigate])
 
   return (
     <Drawer
@@ -101,7 +107,9 @@ const Sidebar = () => {
             sx={{ pl: "20px" }}
             component={Link}
             to={`/memo/${item._id}`}
-            key={index} >
+            key={index}
+            selected={index == activeIndex}
+          >
             <Typography>{item.icon} {item.title}</Typography>
           </ListItemButton>
         ))}
