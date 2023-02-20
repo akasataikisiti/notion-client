@@ -12,6 +12,8 @@ import { Box } from "@mui/system"
 import assets from "src/assets/index"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux'
+import { useEffect } from "react"
+import memoApi from "src/api/memoApi"
 
 const Sidebar = () => {
   const navigate = useNavigate()
@@ -21,6 +23,18 @@ const Sidebar = () => {
     localStorage.removeItem("token")
     navigate("/login")
   }
+
+  useEffect(() => {
+    const getMemos = async () => {
+      try {
+        const res = await memoApi.getAll()
+        console.log(res)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getMemos()
+  }, [])
 
   return (
     <Drawer
