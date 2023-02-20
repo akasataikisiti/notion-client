@@ -11,8 +11,8 @@ const AuthLayout = () => {
     // JWTTを持っているのか確認
     const checkAuth = async () => {
       // 認証チェック
-      const isAuth = await authUtils.isAuthenticated()
-      if (isAuth) {
+      const user = await authUtils.isAuthenticated()
+      if (!user) {
         navigate("/")
       }
     }
