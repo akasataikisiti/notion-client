@@ -32,6 +32,36 @@ const Sidebar = () => {
             </IconButton>
           </Box>
         </ListItemButton>
+        <ListItemButton>
+          <Box sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}>
+            <Typography variant="body2" fontWeight="700">
+              kskabac
+            </Typography>
+            <IconButton>
+              <LogoutOutlinedIcon />
+            </IconButton>
+          </Box>
+        </ListItemButton>
+        <ListItemButton>
+          <Box sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}>
+            <Typography variant="body2" fontWeight="700">
+              kskabac
+            </Typography>
+            <IconButton>
+              <LogoutOutlinedIcon />
+            </IconButton>
+          </Box>
+        </ListItemButton>
       </List>
     </Drawer>
   )
