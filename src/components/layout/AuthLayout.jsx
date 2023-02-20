@@ -7,12 +7,13 @@ import notionLogo from "../../assets/images/notion-logo-1.svg"
 
 const AuthLayout = () => {
   const navigate = useNavigate()
+
   useEffect(() => {
     // JWTTを持っているのか確認
     const checkAuth = async () => {
       // 認証チェック
-      const user = await authUtils.isAuthenticated()
-      if (!user) {
+      const isAuth = await authUtils.isAuthenticated()
+      if (!isAuth) {
         navigate("/")
       }
     }

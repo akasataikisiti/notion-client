@@ -10,9 +10,11 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined"
 import { Box } from "@mui/system"
 import assets from "src/assets/index"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
   const navigate = useNavigate()
+  const user = useSelector((state) => state.user.value)
 
   const logout = () => {
     localStorage.removeItem("token")
@@ -35,7 +37,7 @@ const Sidebar = () => {
             justifyContent: "space-between"
           }}>
             <Typography variant="body2" fontWeight="700">
-              kskabac
+              {user.username}
             </Typography>
             <IconButton onClick={logout}>
               <LogoutOutlinedIcon />

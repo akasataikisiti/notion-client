@@ -1,13 +1,15 @@
 import { Box } from "@mui/material"
-// import { Container } from "@mui/system"
 import { useEffect } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import authUtils from "src/utils/authUtils"
-// import notionLogo from "../../assets/images/notion-logo-1.svg"
 import Sidebar from "../common/Sidebar"
+import { useDispatch } from "react-redux"
+import { setUser } from "src/redux/features/userSlice"
 
 const AppLayout = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   useEffect(() => {
     // JWTTを持っているのか確認
     const checkAuth = async () => {
@@ -15,6 +17,9 @@ const AppLayout = () => {
       const user = await authUtils.isAuthenticated()
       if (!user) {
         navigate("/login")
+      } else {
+        // ユーザを保存する
+        dispatch(setUser(user))
       }
     }
     checkAuth()
