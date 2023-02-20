@@ -11,7 +11,7 @@ const getToken = () => localStorage.getItem("token")
 axiosClient.interceptors.request.use(async (config) => {
   return {
     ...config,
-    header: {
+    headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${getToken()}`,   //リクエストヘッダにJWTを付けてサーバに渡す
     }
