@@ -3,13 +3,20 @@ import { Box } from "@mui/system"
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import memoApi from "src/api/memoApi"
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { setMemo } from "src/redux/features/memoSlice"
 
 const memo = () => {
   const { memoId } = useParams()
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const memos = useSelector((state) => state.memo.value)
+
   useEffect(() => {
     const getMemo = async () => {
       try {
@@ -58,6 +65,13 @@ const memo = () => {
     try {
       const deletedMemo = await memoApi.delete(memoId)
       console.log(deletedMemo)
+      const newMemos = memos.filter((e) => e._id !== memoId)
+      dispatch(setMemo(newMemos))
+      if (newMemos.length === 0) {
+        navigate("/memo")
+      } else {
+        navigate(`/memo/${newMemos[0]._id}`)
+      }
     } catch (err) {
       console.log(err)
     }
