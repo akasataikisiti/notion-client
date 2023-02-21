@@ -14,10 +14,10 @@ const EmojiPicker = (props) => {
 
   const selectEmoji = (e) => {
     // console.log(e)
-    const emojiCode = e.unified
+    const emojiCode = e.unified.split("-")
     // console.log(emojiCode)
     let codesArray = []
-    codesArray.push("0x" + emojiCode)
+    emojiCode.forEach((el) => codesArray.push("0x" + el))
     // console.log(codesArray)
     const emoji = String.fromCodePoint(...codesArray)
     console.log(emoji)
