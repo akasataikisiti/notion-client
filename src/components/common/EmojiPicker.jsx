@@ -22,6 +22,7 @@ const EmojiPicker = (props) => {
     const emoji = String.fromCodePoint(...codesArray)
     console.log(emoji)
     setIsShowPicker(false)
+    props.onChange(emoji)
   }
 
   return (
