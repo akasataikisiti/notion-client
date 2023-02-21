@@ -9,7 +9,14 @@ const EmojiPicker = (props) => {
   useEffect(() => {
     setSelectedEmoij(props.icon)
   }, [props.icon])
+
   const showPicker = () => setIsShowPicker(!isShowPicker)
+
+  const selectEmoji = (e) => {
+    // console.log(e)
+    const emojiCode = e.unified
+    console.log(emojiCode)
+  }
 
   return (
     <Box>
@@ -23,7 +30,7 @@ const EmojiPicker = (props) => {
           zIndex: "100"
         }}
       >
-        <Picker />
+        <Picker onEmojiSelect={selectEmoji} />
       </Box>
     </Box>
   )
