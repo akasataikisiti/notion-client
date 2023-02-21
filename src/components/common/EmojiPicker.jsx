@@ -15,7 +15,13 @@ const EmojiPicker = (props) => {
   const selectEmoji = (e) => {
     // console.log(e)
     const emojiCode = e.unified
-    console.log(emojiCode)
+    // console.log(emojiCode)
+    let codesArray = []
+    codesArray.push("0x" + emojiCode)
+    // console.log(codesArray)
+    const emoji = String.fromCodePoint(...codesArray)
+    console.log(emoji)
+    setIsShowPicker(false)
   }
 
   return (
