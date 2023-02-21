@@ -8,11 +8,13 @@ import memoApi from "src/api/memoApi"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { setMemo } from "src/redux/features/memoSlice"
+import EmojiPicker from "src/components/common/EmojiPicker"
 
 const memo = () => {
   const { memoId } = useParams()
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+  const [icon, setIcon] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const memos = useSelector((state) => state.memo.value)
@@ -23,6 +25,7 @@ const memo = () => {
         const res = await memoApi.getOne(memoId)
         setTitle(res.title)
         setDescription(res.description)
+        setIcon(res.icon)
       } catch (err) {
         console.log(err)
       }
@@ -94,32 +97,35 @@ const memo = () => {
         </IconButton>
       </Box>
       <Box sx={{ padding: "10px 40px" }} >
-        <TextField
-          onChange={updateTitle}
-          value={title}
-          placeholder="無題"
-          variant="outlined"
-          fullWidth
-          sx={{
-            ".MuiOutlinedInput-input": { padding: 0 },
-            ".MuiOutlinedInput-notchedOutline": { border: "none" },
-            ".MuiOutlinedInput-root": { fontSize: "2rem", fontWeight: "700" },
-            fontWeight: "700"
-          }}
-        />
-        <TextField
-          onChange={updateDescription}
-          value={description}
-          placeholder="追加"
-          variant="outlined"
-          fullWidth
-          sx={{
-            ".MuiOutlinedInput-input": { padding: 0 },
-            ".MuiOutlinedInput-notchedOutline": { border: "none" },
-            ".MuiOutlinedInput-root": { fontSize: "1rem" },
-            fontWeight: "1rem"
-          }}
-        />
+        <Box>
+          <EmojiPicker icon={icon} />
+          <TextField
+            onChange={updateTitle}
+            value={title}
+            placeholder="無題"
+            variant="outlined"
+            fullWidth
+            sx={{
+              ".MuiOutlinedInput-input": { padding: 0 },
+              ".MuiOutlinedInput-notchedOutline": { border: "none" },
+              ".MuiOutlinedInput-root": { fontSize: "2rem", fontWeight: "700" },
+              fontWeight: "700"
+            }}
+          />
+          <TextField
+            onChange={updateDescription}
+            value={description}
+            placeholder="追加"
+            variant="outlined"
+            fullWidth
+            sx={{
+              ".MuiOutlinedInput-input": { padding: 0 },
+              ".MuiOutlinedInput-notchedOutline": { border: "none" },
+              ".MuiOutlinedInput-root": { fontSize: "1rem" },
+              fontWeight: "1rem"
+            }}
+          />
+        </Box>
       </Box>
     </>
   )
