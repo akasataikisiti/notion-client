@@ -1,20 +1,19 @@
-import './App.css'
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthLayout from './components/layout/AuthLayout';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { blue } from '@mui/material/colors';
 import AppLayout from './components/layout/AppLayout';
 import Home from './pages/Home';
-import Memo from './pages/Memo'
+import Memo from './pages/Memo';
 
 function App() {
-
   const theme = createTheme({
     palette: { primary: blue },
-  })
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,8 +31,8 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </ThemeProvider >
-  )
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
